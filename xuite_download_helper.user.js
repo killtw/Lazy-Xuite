@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             xuite_download_helper
 // @name           Xuite Download Helper
-// @version        1.0.0
+// @version        1.0.1
 // @namespace      http://blog.k2ds.net/
 // @author         killtw
 // @description    方便下載Xuite檔案，跳過必須按廣告的限制，並且取消倒數
@@ -9,34 +9,22 @@
 // @exclude        http://webhd.xuite.net/*@*
 // ==/UserScript==
 
-// a function that loads jQuery and calls a callback function when jQuery has finished loading
-function addjQuery(callback) {
-  var script = document.createElement("script");
-  script.setAttribute("src", "http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js");
-  script.addEventListener('load', function() {
-    var script = document.createElement("script");
-    script.textContent = "(" + callback.toString() + ")();";
-    document.body.appendChild(script);
-  }, false);
-  document.body.appendChild(script);
-}
-
-function main() {
+(function() {
   var unsafeWindow = this['unsafeWindow'] || window;
+  var req = new XMLHttpRequest();
   if (document.location.href.match(/\?download/)) {
     location.assign('javascript: var time = 10;');
   } else {
-    var src = $('#my2-main-content a').attr('href');
+    var src = document.getElementById('my2-main-content').getElementsByTagName('a')[0].getAttribute('href');
     //console.log(src);
-    $.get(src);
+    req.open("GET", src, true);
+    req.send();
     unsafeWindow.isClick = 1;
-    $('#verify_code_value').keyup(function() {
-      if ($(this).val().length == 6) {
-        $('#save_action').val(1);
-        document.myForm.submit();
+    document.getElementById('verify_code_value').onkeyup = function() {
+      if (this.value.length == 6) {
+        document.getElementById('save_action').value = 1;
+        document.getElementById('myForm').submit();
       }
-    });
+    };
   }
-}
-
-addjQuery(main);
+})();

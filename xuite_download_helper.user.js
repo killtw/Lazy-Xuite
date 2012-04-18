@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             xuite_download_helper
 // @name           Xuite Download Helper
-// @version        1.0.1
+// @version        1.0.2
 // @namespace      http://blog.k2ds.net/
 // @author         killtw
 // @description    方便下載Xuite檔案，跳過必須按廣告的限制，並且取消倒數
@@ -22,7 +22,7 @@
     unsafeWindow.isClick = 1;
     document.getElementById('verify_code_value').onkeyup = function() {
       if (this.value.length == 6) {
-        document.getElementById('save_action').value = 1;
+        document.getElementById('save_action').value = 0;
         document.getElementById('myForm').submit();
       }
     };

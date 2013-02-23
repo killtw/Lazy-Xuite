@@ -1,7 +1,7 @@
 // ==UserScript==
 // @id             lazy_xuite
 // @name           Lazy Xuite
-// @version        1.0.4
+// @version        1.0.5
 // @namespace      http://blog.k2ds.net/
 // @author         killtw
 // @description    方便下載Xuite檔案，跳過必須按廣告的限制，並且取消倒數
@@ -14,7 +14,7 @@
   if (location.search != "") {
     location.assign('javascript: var time = 10;');
   } else {
-    var src = document.getElementById('my2-main-content').getElementsByTagName('a')[0].getAttribute('href');
+    var src = document.getElementById('share-download-ad').getElementsByTagName('a')[0].getAttribute('href');
     req.open("GET", src, true);
     req.send();
     document.getElementById('verify_code_value').onkeyup = function() {
